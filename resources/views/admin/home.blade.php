@@ -13,7 +13,7 @@
                 <div class="panel-heading">Admin Dashboard</div>
 
                 <div class="panel-body">
-                    Admin, You are logged in!
+                    Welcome {{ Auth::guard('admin')->user()->name }}!
                 </div>
             </div>
         </div>

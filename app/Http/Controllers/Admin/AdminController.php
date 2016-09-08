@@ -8,6 +8,9 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Admin;
+use App\Mail\AdminAdded;
+use Mail;
+use Datatables;
 
 class AdminController extends Controller
 {
@@ -18,8 +21,12 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $admins = Admin::all();
-        return view('admin.index', compact('admins'));
+        return view('admin.index');
+    }
+
+    public function list()
+    {
+        return Datatables::of(Admin::query())->make(true);
     }
 
     /**
@@ -57,6 +64,7 @@ class AdminController extends Controller
         $password = str_random(6);
         $input['password'] = bcrypt($password);
         $admin = Admin::create($input);
+        Mail::to('batman@batcave.io')->queue(new AdminAdded($admin, $password));
         $res['success'] = "New Admin added successfully!";
         return $res;
     }

@@ -6,7 +6,7 @@
 	        Dashboard
       	</a>
       	<a href="{{ route('admins.index') }}" class="list-group-item
-      	{{ Request::is('admins*') ? ' active' : '' }}">
+      	{{ Request::is('admin/admins*') ? ' active' : '' }}">
 	        <i class="fa fa-users pull-right" aria-hidden="true"></i>
 	        Admins
       	</a>

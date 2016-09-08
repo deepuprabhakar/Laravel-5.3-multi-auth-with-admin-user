@@ -14,7 +14,12 @@
         @include('admin.partials.sidebar')
         <div class="col-md-9">
             <div class="panel panel-default">
-                <div class="panel-heading">Add Admin</div>
+                <div class="panel-heading">
+                    Add Admin
+                    <div class="pull-right">
+                        <a href={{ route('admins.index') }} class="btn btn-primary admin-add-button">List</a>
+                    </div>
+                </div>
 
                 <div class="panel-body">
                 {!! Form::open(['route' => 'admins.store', 'id' => 'admin-form']) !!}

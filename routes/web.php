@@ -29,11 +29,11 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['adm
     	return redirect()->route('admin.dashboard');
     });
 
+    Route::resource('admins', 'AdminController');
 
-    // Route::get('add', 'AdminController@add')->name('admin.add');
+    Route::get('admin/admins/list', 'AdminController@list')->name('admins.list');
+
 });
-
-Route::resource('admins', 'Admin\AdminController');
 
 /**
  * Password Resets
