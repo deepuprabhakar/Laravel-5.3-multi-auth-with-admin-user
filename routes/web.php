@@ -15,16 +15,25 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+/**
+ * Admin Routes
+ */
 Route::get('admin/login', 'AdminAuth\LoginController@showLoginForm');
 Route::post('admin/login', 'AdminAuth\LoginController@login');
 Route::match(['GET', 'POST'], 'admin/logout', 'AdminAuth\LoginController@logout');
 
 Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['admin', 'history:admin']], function() {
-    Route::get('dashboard', 'AdminController@index')->name('admin.dashboard');
+    
+    Route::get('dashboard', 'AdminController@dashboard')->name('admin.dashboard');
     Route::get('/', function(){
     	return redirect()->route('admin.dashboard');
     });
+
+
+    // Route::get('add', 'AdminController@add')->name('admin.add');
 });
+
+Route::resource('admins', 'Admin\AdminController');
 
 /**
  * Password Resets
@@ -34,6 +43,9 @@ Route::post('admin/password/reset', 'AdminAuth\ResetPasswordController@reset');
 Route::post('admin/password/email', 'AdminAuth\ForgotPasswordController@sendResetLinkEmail');
 Route::get('admin/password/reset/{token}', 'AdminAuth\ResetPasswordController@showResetForm');
 
+/**
+ * User Routes
+ */
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
