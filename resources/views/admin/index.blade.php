@@ -86,6 +86,7 @@
             type        : 'alert',
             dismissQueue: true,
             layout      : layout,
+            modal       : true,
             theme       : 'relax',
             buttons     : [
                 {addClass: 'btn btn-primary', text: 'Ok', onClick: function ($noty) {

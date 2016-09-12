@@ -110,7 +110,7 @@ class AdminController extends Controller
         $password = str_random(6);
         $input['password'] = bcrypt($password);
         $admin = Admin::create($input);
-        Mail::to('batman@batcave.io')->queue(new AdminAdded($admin, $password));
+        Mail::to($request->get('email'))->queue(new AdminAdded($admin, $password));
         $res['success'] = "New Admin added successfully!";
         return $res;
     }

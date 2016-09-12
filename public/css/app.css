@@ -5830,9 +5830,11 @@ div.activity span {
   display: inline-block; }
 
 .datatable-action {
-  width: 25px;
-  border-radius: 1px;
+  border-radius: 50%;
   margin-left: 2px;
-  text-align: center; }
+  text-align: center;
+  width: 25px;
+  height: 25px;
+  padding: 3px 7px; }
 
 /*# sourceMappingURL=app.css.map */
