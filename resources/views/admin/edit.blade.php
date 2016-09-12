@@ -1,7 +1,7 @@
 @extends('admin.app')
 
 @section('title')
-    Add more admins
+    Edit Admins
 @endsection
 
 @push('styles')
@@ -15,7 +15,7 @@
         <div class="col-md-9">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Add Admin
+                    Edit Admin
                     <div class="pull-right">
                         <a href={{ route('admins.index') }} class="btn btn-primary admin-add-button">
                         <i class="fa fa-list" aria-hidden="true"></i> List
@@ -24,7 +24,10 @@
                 </div>
 
                 <div class="panel-body">
-                {!! Form::open(['route' => 'admins.store', 'id' => 'admin-form']) !!}
+                {!! Form::model($admin, 
+                    ['url' => route('admins.update', $admin->hashid), 
+                    'id' => 'admin-form', 
+                    'method' => 'PATCH']) !!}
                     <div class="form-group">
                         <label for="name">Name</label>
                         {!! Form::text('name', 
@@ -37,15 +40,12 @@
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>
-                        {!! Form::text('email', 
-                                        NULL, 
-                                        ['class' => 'form-control', 
-                                        'id' => 'email', 
-                                        'placeholder' => 'Enter email']) !!}
-                        {{ ($errors->has('email') ? $errors->first('email') : '') }}
+                        <div class="form-control">
+                            {{ $admin->email }}
+                        </div>
                         <span class="form-error"></span>
                     </div>
-                    <button class="btn btn-primary" id="add-button">Add</button>
+                    <button class="btn btn-primary" id="add-button">Update</button>
                 {!! Form::close() !!}
                 </div>
             </div>
@@ -62,7 +62,7 @@
         e.preventDefault();
 
         $('span.form-error').hide();
-        $('#add-button').text('Adding...').prop('disabled', true);
+        $('#add-button').text('Updating...').prop('disabled', true);
 
         $.ajax({
             url: $(this).attr('action'),
@@ -72,7 +72,7 @@
             success: function(res)
             {
                 console.log(res);
-                $('#admin-form')[0].reset();
+                // $('#admin-form')[0].reset();
                 generate('success', '<div class="activity-item">\
                     <i class="fa fa-check text-success"></i>\
                     <div class="activity">' + res.success + '</div></div>');
@@ -86,7 +86,7 @@
             },
             complete: function()
             {
-                $('#add-button').text('Add').prop('disabled', false);
+                $('#add-button').text('Update').prop('disabled', false);
             }
         });
     });

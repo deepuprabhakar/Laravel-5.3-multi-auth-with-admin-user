@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Notifications\AdminResetPassword as ResetPasswordNotification;
+use Hashids;
 
 class Admin extends Authenticatable
 {
@@ -18,6 +19,8 @@ class Admin extends Authenticatable
     protected $fillable = [
         'name', 'email', 'password',
     ];
+
+    protected $appends = ['hashid'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -37,5 +40,10 @@ class Admin extends Authenticatable
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new ResetPasswordNotification($token));
+    }
+
+    public function getHashidAttribute()
+    {
+        return Hashids::connection('admins')->encode($this->attributes['id']);
     }
 }

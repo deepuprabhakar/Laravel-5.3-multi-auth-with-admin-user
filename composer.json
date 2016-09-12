@@ -9,7 +9,8 @@
         "laravel/framework": "5.3.*",
         "barryvdh/laravel-debugbar": "^2.2",
         "laravelcollective/html": "5.3.*",
-        "yajra/laravel-datatables-oracle": "^6.18"
+        "yajra/laravel-datatables-oracle": "^6.18",
+        "vinkla/hashids": "^2.4"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
